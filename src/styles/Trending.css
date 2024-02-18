@@ -1,0 +1,9 @@
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body .overflow-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
