@@ -8,16 +8,11 @@ const Search = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
-      const token = process.env.REACT_APP_TOKEN;
       const response = await axios.get(
-        `http://www.omdbapi.com/?t=${searchTerm}&apikey=${token}`
+        `${process.env.REACT_APP_SEARCH_MOVIES}?t=${searchTerm}`
       );
-      // console.log(response.data);
-      if (response.data && response.data.Response !== "False") {
-        setMovie(response.data); // Adjusted for a single movie
-      } else {
-        setMovie(null);
-      }
+      // console.log(response.data.data);
+      setMovie(response.data.data);
     } catch (error) {
       console.error(error);
       setMovie(null);
@@ -94,11 +89,15 @@ const Search = () => {
                 <p class="card-text">
                   <strong>Ratings:</strong>
                   <ul>
-                    {movie.Ratings.map((rating) => (
-                      <li key={rating.Source}>
-                        {rating.Source}: {rating.Value}
-                      </li>
-                    ))}
+                    {movie && movie.Ratings ? (
+                      movie.Ratings.map((rating) => (
+                        <li key={rating.Source}>
+                          {rating.Source}: {rating.Value}
+                        </li>
+                      ))
+                    ) : (
+                      <li>No ratings available</li>
+                    )}
                   </ul>
                 </p>
                 <p class="card-text">
