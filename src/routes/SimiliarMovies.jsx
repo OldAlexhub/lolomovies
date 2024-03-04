@@ -53,10 +53,7 @@ const SimilarMovies = () => {
           },
         }
       );
-      if (response.status === 201) {
-        setShowSuccessMessage(true); // Show success message
-        setTimeout(() => setShowSuccessMessage(false), 3000);
-      }
+     
     } catch (error) {
       console.log(error);
     }
