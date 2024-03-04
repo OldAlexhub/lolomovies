@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const SimilarMovies = () => {
@@ -40,7 +41,9 @@ const SimilarMovies = () => {
                 alt={movie.title}
               />
               <div className="card-body">
-                <h5 className="card-title">{movie.title}</h5>
+                <h5 className="card-title"><Link to={`/watchproviders/${movie.id}`}>
+                    {movie.original_name || movie.title}
+                  </Link></h5>
                 <p className="card-text">{movie.overview}</p>
                 <p className="card-text">
                   <small className="text-muted">
@@ -51,6 +54,14 @@ const SimilarMovies = () => {
                   <small className="text-muted">
                     Rating: {movie.vote_average} ({movie.vote_count} votes)
                   </small>
+                </p>
+                  <p>
+                  <Link
+                    to={`/similarmovies/${movie.id}`}
+                    className="btn btn-primary"
+                  >
+                    Check Recommendations
+                  </Link>
                 </p>
               </div>
             </div>
