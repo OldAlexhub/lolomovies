@@ -28,36 +28,6 @@ const SimilarMovies = () => {
     fetchMovies();
   }, [movieId]);
   
- const handleSubmit = async (e, movie) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem("token");
-      const user = localStorage.getItem("userId");
-      const genreNames = getGenreNames(movie.genre_ids);
-      const response = await axios.post(
-        process.env.REACT_APP_POST_TO_WATCHLIST,
-        {
-          userId: user,
-          img: movie.poster_path,
-          title: movie.title,
-          release_date: movie.release_date,
-          original_language: movie.original_language,
-          genre_ids: genreNames,
-          vote_average: movie.vote_average,
-          overView: movie.overview,
-          id: movie.id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-     
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <div className="container mt-5">
       <h2>Similar Movies</h2>
@@ -85,14 +55,7 @@ const SimilarMovies = () => {
                     Rating: {movie.vote_average} ({movie.vote_count} votes)
                   </small>
                 </p>
-                 <p>
-                    <button
-                      className="btn btn-secondary"
-                      onClick={(e) => handleSubmit(e, movie)}
-                    >
-                      Send to WatchList
-                    </button>
-                  </p>
+
                   <p>
                   <Link
                     to={`/similarmovies/${movie.id}`}
